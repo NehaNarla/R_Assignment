@@ -1,0 +1,43 @@
+---
+title: "R_AssignmentQstn2"
+output: pdf_document
+---
+
+```{r}
+getwd()
+library(dplyr)
+library(ggplot2)
+library(stringr)
+library(plotly)
+NH<-read.csv("NH_cleaned.csv")
+NH_data<-tbl_df(NH)
+View(NH_data)
+NH_gender<-filter(NH_data,driver_gender!="")
+
+Top_Violations <- filter(NH_gender,(violation=="Speeding")|(violation=="Equipment")|(violation=="Safe movement"))
+ggplotly(Top_Violations)
+p<-ggplot(Top_Violations,aes(violation, fill=driver_gender))+geom_bar(position = "dodge")
+p<-p+ggtitle("Bar graph representation of Top 3 violations based on gender")
+p<-p+theme_classic()
+p
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
